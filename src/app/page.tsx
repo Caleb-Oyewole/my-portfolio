@@ -1,8 +1,34 @@
 "use client";
+import ProjectCard from '@/components/ProjectCard';
 import { useTheme } from 'next-themes';
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  tags: string[];
+  link: string;
+}
 
 export default function Portfolio() {
   const { theme, setTheme } = useTheme();
+
+  const projects: Project[] = [
+    {
+      id: 1,
+      title: 'Project One',
+      description: 'Description for project one',
+      tags: ['typescript', 'react'],
+      link: '#',
+    },
+    {
+      id: 2,
+      title: 'Project Two',
+      description: 'Description for project two',
+      tags: ['next.js', 'tailwind'],
+      link: '#',
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors duration-300">
@@ -24,15 +50,17 @@ export default function Portfolio() {
       </header>
 
       {/* Projects Grid */}
-      <section className="max-w-5xl mx-auto px-6 py-12">
-        <h3 className="text-3xl font-bold mb-8">Projects</h3>
-        <div className="grid md:grid-cols-2 gap-8">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="border dark:border-slate-700 p-6 rounded-xl hover:shadow-lg transition">
-              <div className="h-40 bg-slate-100 dark:bg-slate-800 rounded mb-4"></div>
-              <h4 className="text-xl font-bold">Project Title {i}</h4>
-              <p className="text-sm text-slate-500">A brief description of the tech stack and impact.</p>
-            </div>
+      <section className="max-w-6xl mx-auto px-6 py-24">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+          <div>
+            <h3 className="text-4xl font-bold mb-2">Selected Works</h3>
+            <p className="text-slate-500">A collection of things I&apos;ve built recently.</p>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-10">
+          {projects.map((project: Project) => (
+            <ProjectCard key={project.id} project={project} />
           ))}
         </div>
       </section>
