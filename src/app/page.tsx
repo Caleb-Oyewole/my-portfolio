@@ -8,7 +8,7 @@ export default function Portfolio() {
     <div className="min-h-screen bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors duration-300">
       {/* Navigation */}
       <nav className="p-6 flex justify-between items-center max-w-5xl mx-auto">
-        <h1 className="text-2xl font-bold italic">DevPortfolio</h1>
+        <h1 className="text-2xl font-bold">Caleb Oyewole</h1>
         <button
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           className="p-2 bg-slate-200 dark:bg-slate-800 rounded-full"
@@ -20,14 +20,14 @@ export default function Portfolio() {
       {/* Hero Section */}
       <header className="py-20 text-center">
         <h2 className="text-5xl font-extrabold mb-4">Building Digital Experiences</h2>
-        <p className="text-slate-500 dark:text-slate-400">Software Engineer | Designer | Blogger</p>
+        <p className="text-slate-500 dark:text-slate-400">Data Engineer | Graphics Designer | Back-End Developer</p>
       </header>
 
       {/* Projects Grid */}
       <section className="max-w-5xl mx-auto px-6 py-12">
         <h3 className="text-3xl font-bold mb-8">Projects</h3>
         <div className="grid md:grid-cols-2 gap-8">
-          {[1, 2].map((i) => (
+          {[1, 2, 3].map((i) => (
             <div key={i} className="border dark:border-slate-700 p-6 rounded-xl hover:shadow-lg transition">
               <div className="h-40 bg-slate-100 dark:bg-slate-800 rounded mb-4"></div>
               <h4 className="text-xl font-bold">Project Title {i}</h4>
