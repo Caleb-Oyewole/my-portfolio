@@ -68,11 +68,11 @@ export default function Portfolio() {
       {/* Contact Form */}
       <section className="max-w-2xl mx-auto px-6 py-20">
         <h3 className="text-3xl font-bold mb-8 text-center">Get In Touch</h3>
-        <form className="space-y-4">
-          <input type="text" placeholder="Name" className="w-full p-3 rounded border dark:bg-slate-800 dark:border-slate-700" />
-          <input type="email" placeholder="Email" className="w-full p-3 rounded border dark:bg-slate-800 dark:border-slate-700" />
-          <textarea placeholder="Message" rows={4} className="w-full p-3 rounded border dark:bg-slate-800 dark:border-slate-700"></textarea>
-          <button className="w-full bg-blue-600 text-white py-3 rounded font-bold hover:bg-blue-700">Send Message</button>
+        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <input type="text" placeholder="Name" className="w-full p-3 rounded border border-slate-300 dark:bg-slate-800 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input type="email" placeholder="Email" className="w-full p-3 rounded border border-slate-300 dark:bg-slate-800 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <textarea placeholder="Message" rows={4} className="w-full p-3 rounded border border-slate-300 dark:bg-slate-800 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+          <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded font-bold hover:bg-blue-700 transition-colors">Send Message</button>
         </form>
       </section>
     </div>
