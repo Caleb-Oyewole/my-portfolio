@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProjectCard from '@/components/ProjectCard';
 import SocialLinks from '@/components/SocialLinks';
 import GitHubProjects from '@/components/GitHubProjects';
@@ -15,9 +15,15 @@ interface Project {
 
 export default function Portfolio() {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [formMessage, setFormMessage] = useState('');
   const [messageLength, setMessageLength] = useState(0);
+
+  // Ensure component is mounted before rendering theme-dependent content
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -74,13 +80,16 @@ export default function Portfolio() {
       {/* Navigation */}
       <nav className="p-6 flex justify-between items-center max-w-6xl mx-auto">
         <h1 className="text-2xl font-bold">Caleb Oyewole</h1>
-        <button
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          className="p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-yellow-400 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors"
-          aria-label="Toggle dark mode"
-        >
-          {theme === 'dark' ? '☀️' : '🌙'}
-        </button>
+        {mounted && (
+          <button
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-yellow-400 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors"
+            aria-label="Toggle dark mode"
+            suppressHydrationWarning
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+        )}
       </nav>
 
       {/* Hero Section with Profile Picture */}
