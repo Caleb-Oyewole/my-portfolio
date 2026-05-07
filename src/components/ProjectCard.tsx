@@ -3,12 +3,19 @@ import { Project } from "@/data/projects";
 export default function ProjectCard({ project }: { project: Project }) {
     return (
         <div className="group border border-slate-200 dark:border-slate-800 p-6 rounded-2xl hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 hover:shadow-xl bg-slate-50/50 dark:bg-slate-800/50">
-            {/* Placeholder for Project Image */}
+            {/* Project Image with Fallback */}
             <div className="h-48 bg-slate-200 dark:bg-slate-700 rounded-xl mb-5 overflow-hidden">
-                {/* You can add an <img /> tag here later */}
-                <div className="flex items-center justify-center h-full text-slate-400">
-                    Image Placeholder
-                </div>
+                {project.image ? (
+                    <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                ) : (
+                    <div className="flex items-center justify-center h-full text-slate-400">
+                        📸 No Image
+                    </div>
+                )}
             </div>
 
             <h4 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">

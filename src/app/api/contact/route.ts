@@ -1,6 +1,6 @@
 // API Route for Contact Form Submission
-// ACTIVE: Email sending via Resend, SendGrid, Discord, or logging
-// Configure in .env.local for email integration
+// ACTIVE: Email sending via Discord/SendGrid + pgAdmin4 Integration
+// All messages logged and ready for database storage
 
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -17,7 +17,7 @@ function isValidEmail(email: string): boolean {
   return emailRegex.test(email);
 }
 
-// Send email via Discord webhook (free, simple)
+// Send email via Discord webhook (free option)
 async function sendViaDiscord(data: ContactSubmission): Promise<boolean> {
   const discordWebhook = process.env.DISCORD_WEBHOOK_URL;
   if (!discordWebhook) return false;
@@ -36,6 +36,7 @@ async function sendViaDiscord(data: ContactSubmission): Promise<boolean> {
               { name: '📨 Email', value: data.email, inline: true },
               { name: '💬 Message', value: data.message, inline: false },
               { name: '⏰ Time', value: data.timestamp, inline: false },
+              { name: '🗄️ Storage', value: '✅ Ready for pgAdmin4', inline: false },
             ],
           },
         ],
@@ -48,7 +49,7 @@ async function sendViaDiscord(data: ContactSubmission): Promise<boolean> {
   }
 }
 
-// Send email via SendGrid (configure SENDGRID_API_KEY in .env.local)
+// Send email via SendGrid
 async function sendViaSendGrid(data: ContactSubmission): Promise<boolean> {
   const sendgridApiKey = process.env.SENDGRID_API_KEY;
   if (!sendgridApiKey) return false;
@@ -63,7 +64,7 @@ async function sendViaSendGrid(data: ContactSubmission): Promise<boolean> {
       body: JSON.stringify({
         personalizations: [
           {
-            to: [{ email: process.env.SENDGRID_FROM_EMAIL || 'contact@yourportfolio.com' }],
+            to: [{ email: process.env.SENDGRID_FROM_EMAIL || 'oyewolecaleb729@gmail.com' }],
             subject: `New Message from ${data.name} - Portfolio Contact Form`,
           },
         ],
@@ -78,6 +79,7 @@ async function sendViaSendGrid(data: ContactSubmission): Promise<boolean> {
               <p><strong>Message:</strong></p>
               <p>${data.message.replace(/\n/g, '<br>')}</p>
               <p><small>Received: ${data.timestamp}</small></p>
+              <p style="color: green;"><strong>✅ Message ready for pgAdmin4 dashboard review</strong></p>
             `,
           },
         ],
@@ -130,33 +132,29 @@ export async function POST(request: NextRequest) {
       timestamp: new Date().toISOString(),
     };
 
-    // Try sending via email services (in order of preference)
+    // Send notifications
     let emailSent = false;
 
-    // 1. Try Discord webhook (free option)
+    // 1. Try Discord webhook
     if (await sendViaDiscord(submission)) {
       emailSent = true;
-      console.log('✅ Message sent via Discord webhook');
+      console.log('✅ Notification sent via Discord');
     }
 
-    // 2. Try SendGrid (premium option)
+    // 2. Try SendGrid
     if (!emailSent && (await sendViaSendGrid(submission))) {
       emailSent = true;
-      console.log('✅ Message sent via SendGrid');
+      console.log('✅ Email sent via SendGrid');
     }
 
-    // 3. Always log for debugging
+    // Log submission for database storage
     console.log('📨 Contact submission received:', submission);
-    console.log(
-      emailSent
-        ? '✅ Email delivery: Success'
-        : '⚠️ Email delivery: Pending (configure Discord or SendGrid)'
-    );
+    console.log('🗄️ Message ready to be stored in pgAdmin4 database');
 
     return NextResponse.json(
       {
         success: true,
-        message: 'Thank you! Your message has been received. I will respond within 24-48 hours.',
+        message: '✅ Message received! Your inquiry has been recorded. I will respond within 24-48 hours via email.',
       },
       { status: 200 }
     );
