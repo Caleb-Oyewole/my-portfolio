@@ -1,15 +1,18 @@
+import Image from "next/image";
 import { Project } from "@/data/projects";
 
 export default function ProjectCard({ project }: { project: Project }) {
     return (
         <div className="group border border-slate-200 dark:border-slate-800 p-6 rounded-2xl hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 hover:shadow-xl bg-slate-50/50 dark:bg-slate-800/50">
             {/* Project Image with Fallback */}
-            <div className="h-48 bg-slate-200 dark:bg-slate-700 rounded-xl mb-5 overflow-hidden">
+            <div className="relative h-48 bg-slate-200 dark:bg-slate-700 rounded-xl mb-5 overflow-hidden">
                 {project.image ? (
-                    <img
+                    <Image
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        fill
+                        sizes="320px"
+                        className="object-cover group-hover:scale-110 transition-transform duration-300"
                     />
                 ) : (
                     <div className="flex items-center justify-center h-full text-slate-400">

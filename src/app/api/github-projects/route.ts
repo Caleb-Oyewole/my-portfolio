@@ -2,7 +2,7 @@
 // TODO: Add your GitHub Personal Access Token to environment variables
 // This fetches starred or authored repositories from GitHub API
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 interface GitHubRepo {
   id: number;
@@ -14,7 +14,7 @@ interface GitHubRepo {
   topics: string[];
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const githubUsername = process.env.GITHUB_USERNAME;
     const githubToken = process.env.GITHUB_TOKEN;

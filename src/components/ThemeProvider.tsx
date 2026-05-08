@@ -4,11 +4,15 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
     return (
-        <div suppressHydrationWarning>
-            {/* 'attribute="class"' allows Tailwind to use 'dark:' modifiers */}
-            <NextThemesProvider attribute="class" defaultTheme="system" enableSystem storageKey="theme" enableColorScheme={false}>
-                {children}
-            </NextThemesProvider>
-        </div>
+        <NextThemesProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            storageKey="theme"
+            enableColorScheme={false}
+            disableTransitionOnChange
+        >
+            {children}
+        </NextThemesProvider>
     );
 }

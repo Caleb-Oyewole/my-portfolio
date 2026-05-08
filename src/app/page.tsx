@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import ProjectCard from '@/components/ProjectCard';
 import SocialLinks from '@/components/SocialLinks';
 import GitHubProjects from '@/components/GitHubProjects';
@@ -52,6 +53,7 @@ export default function Portfolio() {
         throw new Error('Failed to send message');
       }
     } catch (error) {
+      console.error(error);
       setFormStatus('error');
       setFormMessage('Failed to send message. Please try again.');
       setTimeout(() => setFormStatus('idle'), 5000);
@@ -85,7 +87,6 @@ export default function Portfolio() {
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-yellow-400 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors"
             aria-label="Toggle dark mode"
-            suppressHydrationWarning
           >
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
@@ -98,10 +99,16 @@ export default function Portfolio() {
         <div className="mb-8 flex justify-center">
           <div className="relative w-40 h-40 md:w-48 md:h-48">
             {/* Profile Picture Frame */}
-            <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-400 to-blue-600 dark:from-blue-600 dark:to-blue-800 p-1">
+            <div className="w-full h-full rounded-full bg-linear-to-br from-blue-400 to-blue-600 dark:from-blue-600 dark:to-blue-800 p-1">
               {/* Inner Profile Picture (Placeholder) */}
-              <div className="w-full h-full rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
-                <img src="/profile-pic.jpg" alt="Caleb Oyewole" className="w-full h-full object-cover" />
+              <div className="relative w-full h-full rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                <Image
+                  src="/profile-pic.jpg"
+                  alt="Caleb Oyewole"
+                  fill
+                  sizes="192px"
+                  className="object-cover"
+                />
               </div>
             </div>
           </div>
@@ -182,7 +189,7 @@ export default function Portfolio() {
           <button
             type="submit"
             disabled={formStatus === 'loading' || messageLength < 10}
-            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded font-bold hover:from-blue-700 hover:to-blue-800 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            className="w-full bg-linear-to-r from-blue-600 to-blue-700 text-white py-3 rounded font-bold hover:from-blue-700 hover:to-blue-800 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
             {formStatus === 'loading' ? (
               <span className="flex items-center justify-center gap-2">
