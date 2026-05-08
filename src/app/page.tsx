@@ -107,6 +107,7 @@ export default function Portfolio() {
                   alt="Caleb Oyewole"
                   fill
                   sizes="192px"
+                  loading="eager"
                   className="object-cover"
                 />
               </div>
