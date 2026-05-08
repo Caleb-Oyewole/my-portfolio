@@ -102,7 +102,7 @@ export default function GitHubProjects() {
                 <div>
                     <h3 className="text-4xl font-bold mb-2">GitHub Projects</h3>
                     <p className="text-slate-500 dark:text-slate-400">
-                        Automatically synced from your GitHub profile
+                        Automatically synced from my GitHub profile
                     </p>
                 </div>
                 <a
