@@ -5,14 +5,7 @@ import ProjectCard from '@/components/ProjectCard';
 import SocialLinks from '@/components/SocialLinks';
 import GitHubProjects from '@/components/GitHubProjects';
 import { useTheme } from 'next-themes';
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  tags: string[];
-  link: string;
-}
+import { projects } from '@/data/projects';
 
 export default function Portfolio() {
   const { theme, setTheme } = useTheme();
@@ -59,23 +52,6 @@ export default function Portfolio() {
       setTimeout(() => setFormStatus('idle'), 5000);
     }
   };
-
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: 'Project One',
-      description: 'Description for project one',
-      tags: ['typescript', 'react'],
-      link: '#',
-    },
-    {
-      id: 2,
-      title: 'Project Two',
-      description: 'Description for project two',
-      tags: ['next.js', 'tailwind'],
-      link: '#',
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors duration-300">
@@ -134,7 +110,7 @@ export default function Portfolio() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-10">
-          {projects.map((project: Project) => (
+          {projects.slice(0, 3).map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
         </div>

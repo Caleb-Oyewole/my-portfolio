@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500" height="300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="gradetl_dags" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3776ab;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#044378;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="500" height="300" fill="url(#gradetl_dags)" />
+  
+  <!-- Decorative shapes -->
+  <circle cx="450" cy="30" r="80" fill="rgba(255, 255, 255, 0.1)" />
+  <circle cx="50" cy="250" r="60" fill="rgba(255, 255, 255, 0.1)" />
+  <rect x="20" y="20" width="4" height="100" fill="rgba(255, 255, 255, 0.2)" />
+  
+  <!-- Title -->
+  <text x="250" y="100" font-size="48" font-weight="bold" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif">
+    Etl Dags
+  </text>
+  
+  <!-- Subtitle/Tags -->
+  <text x="250" y="160" font-size="18" text-anchor="middle" fill="rgba(255, 255, 255, 0.8)" font-family="Arial, sans-serif">
+    Python
+  </text>
+  
+  <!-- Icon placeholder -->
+  <rect x="350" y="220" width="120" height="60" fill="rgba(255, 255, 255, 0.15)" rx="8" />
+  <text x="410" y="255" font-size="24" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif">
+    📊
+  </text>
+</svg>

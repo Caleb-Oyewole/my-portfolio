@@ -47,18 +47,35 @@ export async function GET() {
 
     const repos: GitHubRepo[] = await response.json();
 
+    // Map of repository names to image indices for local images
+    const imageMap: { [key: string]: number } = {
+      'webdev_1': 1,
+      'Official-Company-Website': 2,
+      'pr3dkt': 3,
+      'proj2_DE': 4,
+      'etl_dags': 5,
+      'quizz': 6,
+      'proj1_DE': 7,
+      'kwizz': 8,
+    };
+
     // Filter and format repositories
     const formattedRepos = repos
       .filter((repo: GitHubRepo) => !repo.name.includes('portfolio') || repo.description)
-      .map((repo: GitHubRepo) => ({
-        id: repo.id,
-        title: repo.name,
-        description: repo.description || 'No description provided',
-        tags: [repo.language || 'No language', ...repo.topics].filter(Boolean),
-        link: repo.html_url,
-        stars: repo.stargazers_count,
-      }))
-      .slice(0, 6); // TODO: Adjust limit based on your needs
+      .map((repo: GitHubRepo, index: number) => {
+        // Get image path from map, or generate based on index
+        const imageIndex = imageMap[repo.name] || (index + 1);
+        return {
+          id: repo.id,
+          title: repo.name,
+          description: repo.description || 'No description provided',
+          tags: [repo.language || 'No language', ...repo.topics].filter(Boolean),
+          link: repo.html_url,
+          stars: repo.stargazers_count,
+          image: `/github-project-${imageIndex}.svg`,
+        };
+      })
+      .slice(0, 8); // TODO: Adjust limit based on your needs
 
     return NextResponse.json(formattedRepos);
   } catch (error) {
